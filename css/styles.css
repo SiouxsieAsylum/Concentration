@@ -1,14 +1,41 @@
 body {
+  position: relative;
+}
+
+#wordContainer {
+  position: absolute;
+  height: 20vh;
+  width: 100vw;
+  top: 40vh;
 
 }
 
 #word{
   font-size: 15vh;
   text-align: center;
-  margin-top: 40vh;
+  /*left: 20vw;*/
 }
 
 
-button {
-  margin-left: 35vw;
+h2 {
+  position:relative;
+  display: inline-block;
+  font-size: 7vh;
+  opacity: 0;
+}
+
+.displayScore{
+  position: absolute;
+  font-size: 7vh;
+  right: 5vw;
+
+}
+
+#high-scorecard{
+  top: 15vh;
+  color: grey;
+}
+
+#scorecard {
+  top: 5vh;
 }
