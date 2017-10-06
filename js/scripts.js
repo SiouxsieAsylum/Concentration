@@ -14,14 +14,13 @@
   const test = document.getElementById("test");
   const scoreCard = document.getElementById("scorecard");
   const highScoreCard = document.getElementById("high-scorecard");
+  let highScore = storage.getItem('high-score');
 
   let matching = false;
   let score = -1;
 
 
-  highScoreCard.innerHTML = storage.getItem('high-score');
-  // storage.setItem('high-score', score);
-  // storage.setItem('player', name);
+  highScore !== null ? highScoreCard.innerHTML = highScore : highScore;
 
   function randColor(){
     let randWord = Math.floor(Math.random() * 9 - 0);
@@ -60,7 +59,7 @@
   }
 
     function gameOver(){
-      let currentHighScore = parseInt(storage.getItem('high-score'));
+      let currentHighScore = parseInt(highScore);
     if (score > currentHighScore) {
       highScoreCard.innerHTML = score;
       storage.setItem('high-score', score);
