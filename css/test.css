@@ -1,0 +1,48 @@
+  .colorSquare{
+      height: 200px;
+      width: 200px;
+    }
+
+  #blue{
+background-color:blue;
+  }
+
+  #green{
+    background-color:green;
+  }
+
+  #cyan{
+    background-color:cyan;
+  }
+
+  #red{
+    background-color:red;
+  }
+
+  #purple{
+    background-color:purple;
+  }
+
+  #silver{
+    background-color:silver;
+  }
+
+  #grey{
+    background-color:grey;
+  }
+
+  #orange{
+    background-color:orange;
+  }
+
+  #gold{
+    background-color:gold;
+  }
+
+  #black{
+    background-color:black;
+  }
+
+  #yellow{
+    background-color:yellow;
+  }
