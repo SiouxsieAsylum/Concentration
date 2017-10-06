@@ -5,6 +5,35 @@
 // window event listener e.target will be used in final build
 // window.addEventListener('DOMContentLoaded', function(e){
   // literally all other code in here
+
+
+
+
+// 1. high score's size is 0 on github pages
+// 2. make a game over spash page
+// 3. make a timer function
+// 4. make a "frequency counter" function
+// 5. then make shit cray cray
+// 6. requires a turnCounter tho
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   let storage = window.localStorage;
 
 
