@@ -47,6 +47,10 @@
 
   let matching = false;
   let score = -1;
+  let turnCounter = 0;
+
+  console.log("storage "+ storage);
+  console.log("high score "+highScore);
 
 
   highScore !== null ? highScoreCard.innerHTML = highScore : highScore;
@@ -61,7 +65,10 @@
     randWord === randColor ? matching = true : matching = false;
 
     score++;
+    turnCounter++;
     scoreCard.innerHTML= score;
+    console.log("check");
+    console.log("high score "+highScore);
   }
 
   function keyHandler(e){
@@ -93,6 +100,7 @@
       highScoreCard.innerHTML = score;
       storage.setItem('high-score', score);
     }
+    turnCounter = 0;
     scoreCard.innerHTML = 0;
     score = -1;
     randColor();
@@ -102,3 +110,5 @@
 
 
   // what is the refresh conditions?
+  //  what do I wanna do for the loss?
+  //  animate a splash page
