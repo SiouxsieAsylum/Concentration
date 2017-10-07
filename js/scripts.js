@@ -97,8 +97,10 @@
     function gameOver(){
       let currentHighScore = parseInt(highScore);
     if (score > currentHighScore) {
+      console.log(score);
       highScoreCard.innerHTML = score;
       storage.setItem('high-score', score);
+      console.log(storage.getItem('high-score'));
     }
     turnCounter = 0;
     scoreCard.innerHTML = 0;
