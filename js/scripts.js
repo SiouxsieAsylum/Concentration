@@ -35,6 +35,11 @@
 
 
   let storage = window.localStorage;
+  storage.setItem("check", "check")
+  console.log(storage.getItem("check"));
+  if (storage.getItem("high-score") === null){
+    storage.setItem("high-score", "0");
+  }
 
 
 
@@ -67,7 +72,7 @@
     score++;
     turnCounter++;
     scoreCard.innerHTML= score;
-    console.log("check");
+    console.log("rand");
     console.log("high score "+highScore);
   }
 
