@@ -23,13 +23,10 @@ h2 {
   opacity: 0;
 }
 
-
-
 .displayScore{
   position: absolute;
   font-size: 7vh;
   right: 5vw;
-
 }
 
 #high-scorecard{
@@ -39,4 +36,55 @@ h2 {
 
 #scorecard {
   top: 5vh;
+}
+
+#timer {
+  right: 50vw;
+  top: 80vh;
+}
+
+#frequency {
+  right: 5vw;
+  top: 80vh;
+}
+
+#splashPage {
+  z-index: 9999;
+  overflow: hidden;
+  position: absolute;
+  background-color: white;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  animation: blinkInOut 10s infinite;
+}
+
+#splashPage h1 {
+  letter-spacing: 0;
+  font-size: 20vh;
+  position: relative;
+  top: 40vh;
+  left: 10vw;
+}
+
+#splashPage h2 {
+  opacity: 0.8;
+}
+
+span {
+  padding: 0;
+  margin: 0;
+}
+
+@keyframes blinkInOut{
+  0%{background-image: initial;}
+  50%{background-image: url(../images/tv-gif.gif);}
+  51%{background-image: initial;}
+  55%{background-image: url(../images/tv-gif.gif);}
+  58%{background-image: initial;}
+  70%{background-image: url(../images/tv-gif.gif);}
+  73%{background-image: initial;}
+  99%{background-image: url(../images/tv-gif.gif);}
+  100%{background-image: initial;}
 }

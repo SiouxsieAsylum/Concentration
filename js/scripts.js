@@ -2,41 +2,17 @@
 // modal for username
 // has an input
 
-// window event listener e.target will be used in final build
 // window.addEventListener('DOMContentLoaded', function(e){
   // literally all other code in here
 
-
-
-
-// 1. high score's size is 0 on github pages
 // 2. make a game over spash page
-// 3. make a timer function
 // 4. make a "frequency counter" function
 // 5. then make shit cray cray
-// 6. requires a turnCounter tho
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   let storage = window.localStorage;
-  storage.setItem("check", "check")
-  console.log(storage.getItem("check"));
+  // storage.setItem("check", "check")
+  // console.log(storage.getItem("check"));
   if (storage.getItem("high-score") === null){
     storage.setItem("high-score", "0");
   }
@@ -45,24 +21,30 @@
 
   const colors = ["red", "blue", "green", "cyan", "purple", "orange", "yellow", "grey", "black"];
   const word = document.getElementById("word");
-  const test = document.getElementById("test");
+  const timer = document.getElementById("timer");
   const scoreCard = document.getElementById("scorecard");
   const highScoreCard = document.getElementById("high-scorecard");
+  const frequency = document.getElementById("frequency");
+  const splashPage = document.getElementById("splashPage");
+  let freqCounter = 0.0;
+  let startTimer = new Date();
+  let speedOfPlay = 0;
   let highScore = storage.getItem('high-score');
-
   let matching = false;
   let score = -1;
   let turnCounter = 0;
 
-  console.log("storage "+ storage);
-  console.log("high score "+highScore);
-
-
   highScore !== null ? highScoreCard.innerHTML = highScore : highScore;
 
   function randColor(){
+    startTimer = new Date();
+
     let randWord = Math.floor(Math.random() * 9 - 0);
     let randColor = Math.floor(Math.random() * 9 - 0);
+
+    if (splashPage.style.display = "block"){
+      splashPage.style.display = "none";
+    }
 
     word.innerHTML = colors[randWord];
     word.style.color = colors[randColor];
@@ -71,9 +53,9 @@
 
     score++;
     turnCounter++;
+    freqCounter++;
+    setInterval(displayTimer, .5);
     scoreCard.innerHTML= score;
-    console.log("rand");
-    console.log("high score "+highScore);
   }
 
   function keyHandler(e){
@@ -102,18 +84,46 @@
     function gameOver(){
       let currentHighScore = parseInt(highScore);
     if (score > currentHighScore) {
-      console.log(score);
+      clearInterval(timer);
       highScoreCard.innerHTML = score;
       storage.setItem('high-score', score);
-      console.log(storage.getItem('high-score'));
     }
+    splashPage.style.display="block";
     turnCounter = 0;
     scoreCard.innerHTML = 0;
     score = -1;
-    randColor();
+    // randColor();
   }
 
   window.addEventListener("keydown", keyHandler)
+
+  function displayTimer(){
+    let time = new Date();
+
+    timer.innerHTML = time - startTimer;
+  }
+
+  function freq(){
+
+    let currentClicks =  freqCounter;
+    // freqCounter > highestFreq ? highestFreq = frequency : highestFreq;
+
+    if (currentClicks <= 0){
+      clearInterval(freq);
+      frequency.innerHTML = 0;
+      gameOver();
+      // h3.innerHTML = highestFreq;
+    } else {
+      frequency.innerHTML = currentClicks;
+    }
+    freqCounter = 0.0;
+  }
+
+function displayFreq(){
+  setInterval(freq, 1000);
+}
+
+
 
 
   // what is the refresh conditions?
