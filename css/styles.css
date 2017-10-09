@@ -77,14 +77,46 @@ span {
   margin: 0;
 }
 
+.up{
+  animation: upAndTurn 10s infinite;
+}
+
+.down{
+  animation: downAndTurn 10s infinite;
+}
+
 @keyframes blinkInOut{
   0%{background-image: initial;}
   50%{background-image: url(../images/tv-gif.gif);}
   51%{background-image: initial;}
-  55%{background-image: url(../images/tv-gif.gif);}
-  58%{background-image: initial;}
-  70%{background-image: url(../images/tv-gif.gif);}
+  55%{background-image: url(../images/static.gif);}
+  60%{background-image: initial;}
+  70%{background-image: url(../images/static.gif);}
   73%{background-image: initial;}
   99%{background-image: url(../images/tv-gif.gif);}
   100%{background-image: initial;}
+}
+
+@keyframes upAndTurn {
+  0%{;}
+  50%{;}
+  51%{;}
+  55%{;}
+  60%{;}
+  70%{;}
+  73%{;}
+  99%{;}
+  100%{;}
+}
+
+@keyframes downAndTurn {
+  0%{;}
+  50%{;}
+  51%{;}
+  55%{;}
+  60%{;}
+  70%{;}
+  73%{;}
+  99%{;}
+  100%{;}
 }
