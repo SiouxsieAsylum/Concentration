@@ -2,6 +2,10 @@ body {
   position: relative;
 }
 
+h1, h2, h3 {
+  font-family: 'Russo One', sans-serif;
+}
+
 #wordContainer {
   position: absolute;
   height: 20vh;
@@ -48,7 +52,7 @@ h2 {
   top: 80vh;
 }
 
-#splashPage {
+.splashPage {
   z-index: 9999;
   overflow: hidden;
   position: absolute;
@@ -60,21 +64,45 @@ h2 {
   animation: blinkInOut 10s infinite;
 }
 
-#splashPage h1 {
+.splashPage h1 {
   letter-spacing: 0;
-  font-size: 20vh;
+  font-size: 15vh;
   position: relative;
+  text-align: center;
   top: 40vh;
-  left: 10vw;
+  /*left: 10vw;*/
 }
 
-#splashPage h2 {
+.splashPage h2 {
   opacity: 0.8;
 }
 
-span {
+h1 div {
+  display: inline-block;
   padding: 0;
   margin: 0;
+}
+
+#inactivity{
+  display: none;
+  animation: initial;
+  background-image: url(../images/tv-gif.gif);
+  opacity: 0.5;
+}
+
+
+#inactivity h2 {
+  top: 45vh;
+  left: 45vw;
+  font-size: 13vh;
+
+}
+
+#clickhere {
+  left: 40vw;
+  /*text-align: center;*/
+  cursor: pointer;
+  top: 60vh;
 }
 
 .up{
@@ -97,26 +125,19 @@ span {
   100%{background-image: initial;}
 }
 
-@keyframes upAndTurn {
-  0%{;}
-  50%{;}
-  51%{;}
-  55%{;}
-  60%{;}
-  70%{;}
-  73%{;}
-  99%{;}
-  100%{;}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.flippedX{
+  transform: scaleX(-1);
 }
 
-@keyframes downAndTurn {
-  0%{;}
-  50%{;}
-  51%{;}
-  55%{;}
-  60%{;}
-  70%{;}
-  73%{;}
-  99%{;}
-  100%{;}
+.flippedY{
+  transform: scaleY(-1);
 }
+.flipped{
+  transform: scale(-1);
+}
+
+
+
+

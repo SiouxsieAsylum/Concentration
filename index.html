@@ -8,11 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="css/reset.css">
   <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Russo+One" rel="stylesheet">
 
 
 
 </head>
-<body>
+<body onload="animateLetters(); setLevels()">
 
 
   <h1 class="displayScore" id="scorecard">0</h1>
@@ -22,22 +23,26 @@
     <h1 id="word"></h1>
   </div>
 
-  <div id="splashPage">
-    <h1>
-      <span class="up">D</span>
-      <span class="down">I</span>
-      <span class="up">S</span>
-      <span class="down">S</span>
-      <span class="up">O</span>
-      <span class="down">N</span>
-      <span class="up">A</span>
-      <span class="down">N</span>
-      <span class="up">C</span>
-      <span class="down">E</span>
+  <div class="splashPage" id="titlePage">
+    <h1 id="title">
+      <div class="up">D</div>
+      <div class="down">I</div>
+      <div class="up">S</div>
+      <div class="down">S</div>
+      <div class="up">O</div>
+      <div class="down">N</div>
+      <div class="up">A</div>
+      <div class="down">N</div>
+      <div class="up">C</div>
+      <div class="down">E</div>
     </h1>
     <h2 id="clickhere" onclick="randColor(); displayFreq()">Click to start</h2>
-    <!--  onload="randColor(); displayFreq()" -->
+  </div>
 
+  <div class="splashPage" id="inactivity">
+    <h1>Still Playing?</h1>
+    <h1>Press Any Key to Continue</h1>
+    <h2 id="count">5</h2>
   </div>
 
   <!-- <button id="test" onclick="randColor()" >color change</button> -->
