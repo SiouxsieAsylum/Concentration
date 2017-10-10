@@ -2,7 +2,16 @@ body {
   position: relative;
 }
 
-h1, h2, h3 {
+a {
+  text-decoration: none;
+  position: absolute;
+  font-size: 10px;
+  top:99vh;
+  right:0;
+  color:black;
+}
+
+p,h1, h2, h3 {
   font-family: 'Russo One', sans-serif;
 }
 
@@ -70,7 +79,6 @@ h2 {
   position: relative;
   text-align: center;
   top: 40vh;
-  /*left: 10vw;*/
 }
 
 .splashPage h2 {
@@ -81,6 +89,13 @@ h1 div {
   display: inline-block;
   padding: 0;
   margin: 0;
+}
+
+#arrows{
+  margin-top: 1vh;
+  text-align: center;
+  opacity: 0.8;
+  display: none;
 }
 
 #inactivity{
@@ -95,12 +110,10 @@ h1 div {
   top: 45vh;
   left: 45vw;
   font-size: 13vh;
-
 }
 
 #clickhere {
   left: 40vw;
-  /*text-align: center;*/
   cursor: pointer;
   top: 60vh;
 }
@@ -138,6 +151,20 @@ h1 div {
   transform: scale(-1);
 }
 
+#clickme{
+  /*background-color: red;*/
+  height: 5vh;
+  width: 5vh;
+  position: absolute;
+  top: 93vh;
+  right:0;
+  background-image: url(../images/yes_music.png);
+  background-size: cover;
+}
+
+/*.off {
+  background-image: url(../images/no_music.png);
+}*/
 
 
 

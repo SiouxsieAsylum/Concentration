@@ -37,29 +37,29 @@
       <div class="down">E</div>
     </h1>
     <h2 id="clickhere" onclick="randColor(); displayFreq()">Click to start</h2>
+
+ <!--    <div id="clickme" onclick="audio()">
+    <audio autoplay loop id="bkgd">
+      <source src="media/electronica.mp3" type="audio/mpeg">
+    </audio></div> -->
+    <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/us/"><p>Music licensed under Creative Commons</p></a>
   </div>
 
-  <div class="splashPage" id="inactivity">
+<!--   <div class="splashPage" id="inactivity">
     <h1>Still Playing?</h1>
     <h1>Press Any Key to Continue</h1>
     <h2 id="count">5</h2>
-  </div>
-
-  <!-- <button id="test" onclick="randColor()" >color change</button> -->
+  </div> -->
 
   <h1 class="displayScore" id = "timer">0.0</h1>
   <h1 class="displayScore" id="frequency">frequency <span id = "freqNumber">0.0</span></h1>
 
   <!-- appears first -->
-  <h2 id = "left-arrow">Left Arrow</h2>
+  <audio id="swoosh">
+    <source src="media/swoosh.mp3" type="audio/mpeg" >
+  </audio>
+  <h2 id = "arrows"> ---&#62; INVERTED CONTROLS &#60;--- </h2>
 
-  <!-- if left key pressed when incorrect -->
-  <h2 id = "right-arrow">Right Arrow</h2>
-
-
-  <!-- <div id="game-over">
-
-  </div> -->
 
 <script src="js/scripts.js" type="text/javascript" ></script>
 </body>

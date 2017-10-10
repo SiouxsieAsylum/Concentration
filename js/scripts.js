@@ -1,14 +1,3 @@
-// What needs to be done now
-// every X turns, pick a rand number. On that turn, add a new transformation option
-// transformations include
-// word upside down
-// word spelled backwards
-// inverted controlls
-// background a radial gradient of correct color
-// background a radial gradient of incorrect color
-// timer displays backwards
-// etc
-
 // also, adding a blinking to the game over screen
 // translations when words come in and out
 // home screen has achievements board
@@ -16,8 +5,7 @@
 // format timer that formatted ss:mm
 // sounds
 
-// audio for menu https://www.youtube.com/watch?v=BnmglWHoVrk
-// https://www.youtube.com/watch?v=i6O6I3M4qEY
+
 
 
 
@@ -33,6 +21,8 @@
   const highScoreCard = document.getElementById("high-scorecard");
   const frequency = document.getElementById("frequency");
   const splashPage = document.getElementById("titlePage");
+  const arrows = document.getElementById("arrows");
+  let swoosh = document.getElementById("swoosh");
   let classes = ["flippedX","flippedY","flipped"];
   let complications = [invert, backgroundColor, backgroundFlip];
   let body = document.getElementsByTagName("body")[0];
@@ -83,10 +73,12 @@
     switch(key){
       case 37:
         matching ? randColor() : gameOver();
+        swoosh.play();
         reset();
         break;
       case 39:
         !matching ? randColor() : gameOver();
+        swoosh.play();
         reset();
         break;
       case 27:
@@ -292,10 +284,8 @@ function turnSelector(){
       complications[compRandom].call();
       body.classList.add(`${classes[classRandom]}`);
     }
-    // turnCounter == i + 1 ? reset() : console.log("classRemoved");
   }
 
-  // turnCounter == num + 1 ? word.classList = "" : console.log("classRemoved");
 }
 
 
@@ -314,11 +304,11 @@ function swap(e){
       switch(key){
       case 39:
         matching ? randColor() : gameOver();
-        // word.classList = "";
+        swoosh.play();
         break;
       case 37:
         !matching ? randColor() : gameOver();
-        // word.classList = "";
+        swoosh.play();
         break;
       case 27:
       case 17:
@@ -337,8 +327,10 @@ function swap(e){
 
 
 function invert(){
+
   window.removeEventListener("keydown", keyHandler);
   window.addEventListener("keydown", swap);
+  arrows.style.display = "block";
 }
 
 function backgroundFlip(){
@@ -350,9 +342,25 @@ function reset(){
   window.removeEventListener("keydown", swap);
   window.addEventListener("keydown", keyHandler);
 
+  arrows.style.display="none";
   body.style.background = "none";
   body.classList = "";
   word.classList = "";
+  turnSelector();
+}
+
+
+
+function audio(){
+  let bkgd = document.getElementById("bkgd");
+  let audioDiv = document.getElementById("clickme");
+  if (!bkgd.muted){
+    bkgd.muted = true;
+    audioDiv.style.backgroundImage = "url(images/no_music.png)"
+  } else {
+    bkgd.muted = false;
+    audioDiv.style.backgroundImage = "url(images/yes_music.png)"
+  }
 }
 
 // see if all this shit works
