@@ -62,9 +62,6 @@
     setInterval(displayTimer, .5);
     scoreCard.innerHTML= score;
     turnSelector();
-
-    // checkInactivity();
-    // window.addEventListener("keydown", keyHandler);
   }
 
   function keyHandler(e){
@@ -257,8 +254,6 @@ function setLevels(){
   console.log(levels);
 }
 
-
-//
 function turnSelector(){
   for (let i = 0; i < levels.length; i++){
     let classRandom = Math.floor(Math.random() * 2 - 0);
