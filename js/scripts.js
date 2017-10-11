@@ -3,8 +3,6 @@
 // achievement tings on side
 // format timer that formatted ss:mm
 
-
-
   let storage = window.localStorage;
   if (storage.getItem("high-score") === null){
     storage.setItem("high-score", "0");
@@ -15,13 +13,14 @@
   const timer = document.getElementById("timer");
   const scoreCard = document.getElementById("scorecard");
   const highScoreCard = document.getElementById("high-scorecard");
-  const frequency = document.getElementById("frequency");
+  const frequency = document.getElementById("freqNumber");
   const splashPage = document.getElementById("titlePage");
   const arrows = document.getElementById("arrows");
   const swoosh = document.getElementById("swoosh");
   const distort = document.getElementById("distort");
   const bkgd = document.getElementById("bkgd");
   const darkness = document.getElementById("darkness")
+  let obligation = {};
   let classes = ["flippedX","flippedY","flipped"];
   let complications = [invert, backgroundColor, backgroundFlip];
   let body = document.getElementsByTagName("body")[0];
@@ -34,8 +33,6 @@
   let matching = false;
   let score = -1;
   let turnCounter = 0;
-  let freqencyVar;
-  let countDownVar;
 
   highScore !== null ? highScoreCard.innerHTML = highScore : highScore;
 
@@ -112,6 +109,7 @@
       turnCounter = 0;
       scoreCard.innerHTML = 0;
       score = -1;
+      setTimeout(newGame, 7000);
   }
 
   function displayTimer(){
