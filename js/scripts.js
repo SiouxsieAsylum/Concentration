@@ -62,7 +62,7 @@
     gameOn = true;
     setInterval(displayTimer, .5);
     scoreCard.innerHTML= score;
-    turnSelector();
+    // turnSelector();
   }
 
   function keyHandler(e){
@@ -103,6 +103,7 @@
         highScoreCard.innerHTML = score;
         storage.setItem('high-score', score);
       }
+      reset();
       darkness.style.animation="dark 3s 1 linear"
       distort.play();
       window.addEventListener("keydown", keyHandler);
@@ -122,7 +123,7 @@
   }
 
  function freq(){
-    // console.log("interval is going");
+
     let currentClicks =  freqCounter;
     frequency.innerHTML = currentClicks;
     freqCounter = 0;
@@ -259,6 +260,7 @@ function setLevels(){
 }
 
 function turnSelector(){
+  console.log("adding complications");
   for (let i = 0; i < levels.length; i++){
     let classRandom = Math.floor(Math.random() * 2 - 0);
     let compRandom = Math.floor(Math.random() * 2 - 0);
@@ -303,10 +305,12 @@ function swap(e){
       switch(key){
       case 39:
         matching ? randColor() : gameOver();
+        reset();
         swoosh.play();
         break;
       case 37:
         !matching ? randColor() : gameOver();
+        reset();
         swoosh.play();
         break;
       case 27:
@@ -338,6 +342,7 @@ function backgroundFlip(){
 }
 
 function reset(){
+  console.log("resetting");
   window.removeEventListener("keydown", swap);
   window.addEventListener("keydown", keyHandler);
 

@@ -1,5 +1,5 @@
 # Dissonance 
-## An homage to V
+## An homage to OLDTV
 ### By Andrea McKenzie, 
 ### Oct 6. 2017
 
