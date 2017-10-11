@@ -1,3 +1,13 @@
+body::before{
+  position: absolute;
+  height: 100vh;
+  width:100vw;
+  content:'';
+  background-image:url(../images/tv-gif.gif);
+  opacity:0.3;
+
+}
+
 body {
   position: relative;
 }
@@ -103,6 +113,7 @@ h1 div {
 
 #darkness{
  background-color: black;
+ background-size: cover;
  opacity: 0;
  z-index: -1;
 }
@@ -136,6 +147,13 @@ h1 div {
   0%, 50% {z-index:9999; opacity:1;}
   99%{z-index:9999; opacity:0;}
   100%{z-index:-1; opacity:0;}
+}
+
+@keyframes win {
+  0% {z-index:9999; opacity:1; background-image:initial;}
+  50% {z-index:9999; opacity:1; background-image:url(../images/warning.webp);}
+  99%{z-index:9999; opacity:0; background-image:url(../images/warning.webp);}
+  100%{z-index:-1; opacity:0; background-image:url(../images/warning.webp);}
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/

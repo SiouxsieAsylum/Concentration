@@ -1,11 +1,7 @@
-// also, adding a blinking to the game over screen
 // translations when words come in and out
 // home screen has achievements board
 // achievement tings on side
 // format timer that formatted ss:mm
-// sounds
-
-
 
 
 
@@ -24,6 +20,8 @@
   const arrows = document.getElementById("arrows");
   const swoosh = document.getElementById("swoosh");
   const distort = document.getElementById("distort");
+  const bkgd = document.getElementById("bkgd");
+  const darkness = document.getElementById("darkness")
   let classes = ["flippedX","flippedY","flipped"];
   let complications = [invert, backgroundColor, backgroundFlip];
   let body = document.getElementsByTagName("body")[0];
@@ -62,6 +60,7 @@
     gameOn = true;
     setInterval(displayTimer, .5);
     scoreCard.innerHTML= score;
+    win();
     // turnSelector();
   }
 
@@ -94,8 +93,6 @@
 
 
     function gameOver(){
-      let darkness = document.getElementById("darkness")
-
       let currentHighScore = parseInt(highScore);
 
       if (score > currentHighScore) {
@@ -296,7 +293,7 @@ function backgroundColor(){
   let rgbcolors = ["rgba(255, 0, 0,0.7)","rgba(0, 0, 255,0.7)","rgba(0, 128, 0,0.7)","rgba(0, 255, 255, 0.7)","rgba(128, 0, 128, 0.7)","rgba(255, 165, 0, 0.7)","rgba(255, 255, 0, 0.7)","rgba(128, 128, 128,0.7)","rgba(0, 0, 0, 0.7)"];
   let rand = Math.floor(Math.random() * 9 - 0);
 
-  body.style.background = `radial-gradient(circle, rgba(255,255,255,1.0), ${rgbcolors[rand]})`
+  body.style.backgroundColor = `${rgbcolors[rand]})`
 }
 
 function swap(e){
@@ -354,9 +351,8 @@ function reset(){
 }
 
 
-
 function audio(){
-  let bkgd = document.getElementById("bkgd");
+
   let audioDiv = document.getElementById("clickme");
   if (!bkgd.muted){
     bkgd.muted = true;
@@ -367,54 +363,27 @@ function audio(){
   }
 }
 
-// see if all this shit works
+function win(){
+  let help = document.getElementById("help");
+  if (turnCounter == 51) {
+    darkness.style.animation="win 7s";
+    splashPage.style.display="block";
+    bkgd.pause();
+    help.play();
+    levels = [];
+    setLevels();
+    turnSelector();
+    gameOn = false;
+    turnCounter = 0;
+    scoreCard.innerHTML = 0;
+    score = -1;
+    setTimeout(newGame, 7000);
+  }
+}
 
 
-  // what is the refresh conditions?
-  //  what do I wanna do for the loss?
-  //  animate a splash page
+function newGame(){
+  darkness.style.animation="initial";
+  bkgd.play();
+}
 
-    //  function checkInactivity() {
-  //   let currentClicks =  freqCounter;
-  //   if (currentClicks <= 0 && gameOn == true ){
-
-  //   setTimeout(function(){
-  //     console.log("check");
-  //     // stopFreq();
-  //     stillPlaying.style.display = "block";
-  //     executeCountdown();
-  //     window.removeEventListener("keydown", keyHandler);
-  //     window.addEventListener("keydown",close);
-  //   }, 5000);
-
-  //   }
-  // }
-
- // function executeCountdown(){
- //  countDownVar = setInterval(countDown, 1000);
- // }
-
- //  function countDown(){
-//   // console.log("doo doo doo");
-//   let displayCount = document.getElementById("count");
-//   let count = parseInt(displayCount.innerHTML);
-//   if (count > 1){
-//     count = count - 1;
-//     displayCount.innerHTML = count;
-//   } else {
-//     inactivity();
-//   }
-// }
-
-// function stopCountdown(){
-//   console.log("stopCounting");
-//   clearInterval(countDownVar);
-// }
-
-// function inactivity(){
-//   // console.log("inactivity running");
-//   stopFreq();
-//   stopCountdown();
-//   frequency.innerHTML = 0;
-//   gameOver();
-// }
