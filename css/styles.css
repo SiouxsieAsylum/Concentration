@@ -34,7 +34,7 @@ p,h1, h2, h3 {
 }
 
 #word{
-  font-size: 15vh;
+  font-size: 15vw;
   text-align: center;
 }
 
@@ -42,7 +42,7 @@ p,h1, h2, h3 {
 h2 {
   position:relative;
   display: inline-block;
-  font-size: 7vh;
+  font-size: 5vw;
   opacity: 0;
 }
 
@@ -91,10 +91,15 @@ h2 {
   font-size: 10vw;
   position: relative;
   text-align: center;
+
+}
+
+#titlePage h1{
   top: 40vh;
 }
 
 .splashPage h2 {
+  left: 20vw;
   opacity: 0.8;
 }
 
@@ -105,7 +110,10 @@ h1 div {
 }
 
 #arrows{
-  margin-top: 1vh;
+  font-size: 4vw;
+  position: absolute;
+  margin-top: 65vh;
+  margin-left: 20vw;
   text-align: center;
   opacity: 0.8;
   display: none;
@@ -118,9 +126,58 @@ h1 div {
  z-index: -1;
 }
 
+#tutorial {
+  z-index: 9998;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+
+}
+
+#tutorial h1{
+  left:10vw;
+}
+
+#tutorial div {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.flex {
+  left: 10vw;
+  display: flex;
+}
+
+#tutorialContainer{
+  top: 20vh;
+  left: 20vw;
+  height: 50vh;
+  width: 100vw;
+  position: absolute;
+}
+
+#left-arr{
+  /*background-color: red;*/
+  height:18vw;
+  width: 18vw;
+  background-image:url(../images/left-arrow.png);
+  background-size: cover;
+}
+
+#right-arr{
+  /*top: 18vw;*/
+  left:0;
+  height:18vw;
+  width: 18vw;
+  background-image:url(../images/right-arrow.png);
+  background-size: cover;
+}
+
+
 #clickhere {
-  left: 40vw;
-  cursor: pointer;
+
   top: 60vh;
 }
 .up{
@@ -141,6 +198,12 @@ h1 div {
   73%{background-image: initial;}
   99%{background-image: url(../images/tv-gif.gif);}
   100%{background-image: initial;}
+}
+
+@keyframes teach {
+  0%, 80% {z-index:9999; opacity:0.8;}
+  99%{z-index:9999; opacity:0;}
+  100%{z-index:-1; opacity:0;}
 }
 
 @keyframes dark {

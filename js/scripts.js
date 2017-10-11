@@ -19,8 +19,8 @@
   const swoosh = document.getElementById("swoosh");
   const distort = document.getElementById("distort");
   const bkgd = document.getElementById("bkgd");
-  const darkness = document.getElementById("darkness")
-  let obligation = {};
+  const darkness = document.getElementById("darkness");
+  const tutorial = document.getElementById("tutorial");
   let classes = ["flippedX","flippedY","flipped"];
   let complications = [invert, backgroundColor, backgroundFlip];
   let body = document.getElementsByTagName("body")[0];
@@ -33,8 +33,31 @@
   let matching = false;
   let score = -1;
   let turnCounter = 0;
+  let playState = {
+
+  };
 
   highScore !== null ? highScoreCard.innerHTML = highScore : highScore;
+
+
+  window.addEventListener("keydown", launchGame)
+
+  function launchGame(e){
+    let key = e.keyCode;
+
+    if (key == 13){
+        if (splashPage.style.display = "block"){
+          splashPage.style.display = "none";
+        }
+
+        tutorial.style.animation = "teach 6s";
+        window.removeEventListener("keydown", launchGame);
+        window.addEventListener("keydown", keyHandler);
+
+        setTimeout(randColor, 5500);
+        setTimeout(displayTimer, 5500);
+      }
+  }
 
   function randColor(){
     startTimer = new Date();
@@ -42,9 +65,7 @@
     let randWord = Math.floor(Math.random() * 9 - 0);
     let randColor = Math.floor(Math.random() * 9 - 0);
 
-    if (splashPage.style.display = "block"){
-      splashPage.style.display = "none";
-    }
+
 
     word.innerHTML = colors[randWord];
     word.style.color = colors[randColor];
@@ -82,9 +103,6 @@
         // var stillPlaying = confirm("Game disabled. Would you like to continue playing?");
         // stillPlaying ? window.addEventListener("keydown", keyHandler) : alert("Game Over");
         break;
-      default:
-        alert("Left or Right Arrow only please");
-        break;
     }
   }
 
@@ -100,7 +118,7 @@
       reset();
       darkness.style.animation="dark 3s 1 linear"
       distort.play();
-      window.addEventListener("keydown", keyHandler);
+      window.addEventListener("keydown", launchGame);
       splashPage.style.display="block";
       levels = [];
       setLevels();
@@ -139,7 +157,7 @@ function stopFreq(){
   console.log("stop freqing");
 }
 
-  window.addEventListener("keydown", keyHandler)
+
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -315,9 +333,6 @@ function swap(e){
         // var stillPlaying = confirm("Game disabled. Would you like to continue playing?");
         // stillPlaying ? window.addEventListener("keydown", keyHandler) : alert("Game Over");
         break;
-      default:
-        alert("Left or Right Arrow only please");
-        break;
     }
   }
 
@@ -363,7 +378,7 @@ function audio(){
 
 function win(){
   let help = document.getElementById("help");
-  if (turnCounter == 51) {
+  if (turnCounter == 5) {
     darkness.style.animation="win 7s";
     splashPage.style.display="block";
     bkgd.pause();
@@ -375,6 +390,8 @@ function win(){
     turnCounter = 0;
     scoreCard.innerHTML = 0;
     score = -1;
+    window.removeEventListener("keydown", keyHandler);
+    window.addEventListener("keydown", launchGame);
     setTimeout(newGame, 7000);
   }
 }
