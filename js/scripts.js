@@ -22,7 +22,8 @@
   const frequency = document.getElementById("frequency");
   const splashPage = document.getElementById("titlePage");
   const arrows = document.getElementById("arrows");
-  let swoosh = document.getElementById("swoosh");
+  const swoosh = document.getElementById("swoosh");
+  const distort = document.getElementById("distort");
   let classes = ["flippedX","flippedY","flipped"];
   let complications = [invert, backgroundColor, backgroundFlip];
   let body = document.getElementsByTagName("body")[0];
@@ -93,6 +94,8 @@
 
 
     function gameOver(){
+      let darkness = document.getElementById("darkness")
+
       let currentHighScore = parseInt(highScore);
 
       if (score > currentHighScore) {
@@ -100,7 +103,8 @@
         highScoreCard.innerHTML = score;
         storage.setItem('high-score', score);
       }
-
+      darkness.style.animation="dark 3s 1 linear"
+      distort.play();
       window.addEventListener("keydown", keyHandler);
       splashPage.style.display="block";
       levels = [];

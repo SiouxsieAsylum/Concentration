@@ -70,6 +70,9 @@ h2 {
   width: 100vw;
   top: 0;
   left: 0;
+}
+
+#titlePage{
   animation: blinkInOut 10s infinite;
 }
 
@@ -98,18 +101,10 @@ h1 div {
   display: none;
 }
 
-#inactivity{
-  display: none;
-  animation: initial;
-  background-image: url(../images/tv-gif.gif);
-  opacity: 0.5;
-}
-
-
-#inactivity h2 {
-  top: 45vh;
-  left: 45vw;
-  font-size: 13vh;
+#darkness{
+ background-color: black;
+ opacity: 0;
+ z-index: -1;
 }
 
 #clickhere {
@@ -117,7 +112,6 @@ h1 div {
   cursor: pointer;
   top: 60vh;
 }
-
 .up{
   animation: upAndTurn 10s infinite;
 }
@@ -136,6 +130,12 @@ h1 div {
   73%{background-image: initial;}
   99%{background-image: url(../images/tv-gif.gif);}
   100%{background-image: initial;}
+}
+
+@keyframes dark {
+  0%, 50% {z-index:9999; opacity:1;}
+  99%{z-index:9999; opacity:0;}
+  100%{z-index:-1; opacity:0;}
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
