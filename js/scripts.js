@@ -362,7 +362,7 @@ function audio(){
 
 function win(){
   let help = document.getElementById("help");
-  if (playState.turnCounter == 5) {
+  if (playState.turnCounter == 51) {
     darkness.style.animation="win 7s";
     splashPage.style.display="block";
     bkgd.pause();
