@@ -16,7 +16,7 @@ V is a game where you have a word that represents a color. The word may be the s
 
 I would say the biggest challange will be styling it in a way that's similar to V. Certain things, like the VHS style distortion can't yet really be done with traditional CSS. Also, having the collectiion of affections on the screen based upon how many turns have passed will be time-consuming and a bit difficult to implement. 
 
-## Phases of completion
-  * Placing all items on the page, such as timer, word, and score
-  * Writing the logic for randomly cycling the words and colors
-  * Styling the distortions 
+## Technologies Used
+  * HTML
+  * CSS, including flexbox and keyframes
+  * Pure Madagascar Vanilla Javascript 
