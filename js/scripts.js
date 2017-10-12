@@ -21,23 +21,28 @@
   const bkgd = document.getElementById("bkgd");
   const darkness = document.getElementById("darkness");
   const tutorial = document.getElementById("tutorial");
+  const body = document.getElementsByTagName("body")[0];
   let classes = ["flippedX","flippedY","flipped"];
   let complications = [invert, backgroundColor, backgroundFlip];
-  let body = document.getElementsByTagName("body")[0];
+
   let levels = [];
-  let gameOn = false;
-  let freqCounter = 0;
+  // let gameOn = false;
+  // let freqCounter = 0;
   let startTimer = new Date();
   let speedOfPlay = 0;
-  let highScore = storage.getItem('high-score');
+  // let highScore = storage.getItem('high-score');
   let matching = false;
-  let score = -1;
-  let turnCounter = 0;
+  // let score = -1;
+  // let turnCounter = 1;
   let playState = {
-
+    highScore: storage.getItem('high-score'),
+    score: -1,
+    turnCounter: 0,
+    freqCounter: 0,
+    gameOn: false,
   };
 
-  highScore !== null ? highScoreCard.innerHTML = highScore : highScore;
+  playState.highScore !== null ? highScoreCard.innerHTML = playState.highScore : playState.highScore;
 
 
   window.addEventListener("keydown", launchGame)
@@ -65,21 +70,19 @@
     let randWord = Math.floor(Math.random() * 9 - 0);
     let randColor = Math.floor(Math.random() * 9 - 0);
 
-
-
     word.innerHTML = colors[randWord];
     word.style.color = colors[randColor];
 
     randWord === randColor ? matching = true : matching = false;
 
-    score++;
-    turnCounter++;
-    freqCounter++;
-    gameOn = true;
+    playState.score++;
+    playState.turnCounter++;
+    playState.freqCounter++;
+    playState.gameOn = true;
     setInterval(displayTimer, .5);
-    scoreCard.innerHTML= score;
+    scoreCard.innerHTML= playState.score;
+    console.log(playState.turnCounter);
     win();
-    // turnSelector();
   }
 
   function keyHandler(e){
@@ -100,20 +103,19 @@
       case 17:
       case 91:
         window.removeEventListener("keydown", keyHandler);
-        // var stillPlaying = confirm("Game disabled. Would you like to continue playing?");
-        // stillPlaying ? window.addEventListener("keydown", keyHandler) : alert("Game Over");
+        var stillPlaying = confirm("Game disabled. Would you like to continue playing?");
+        stillPlaying ? window.addEventListener("keydown", keyHandler) : gameOver();
         break;
     }
   }
 
-
     function gameOver(){
-      let currentHighScore = parseInt(highScore);
+      let currentHighScore = parseInt(playState.highScore);
 
-      if (score > currentHighScore) {
+      if (playState.score > currentHighScore) {
         clearInterval(timer);
-        highScoreCard.innerHTML = score;
-        storage.setItem('high-score', score);
+        highScoreCard.innerHTML = playState.score;
+        storage.setItem('high-score', playState.score);
       }
       reset();
       darkness.style.animation="dark 3s 1 linear"
@@ -123,11 +125,12 @@
       levels = [];
       setLevels();
       turnSelector();
-      gameOn = false;
-      turnCounter = 0;
+      playState.gameOn = false;
+      playState.turnCounter = 0;
       scoreCard.innerHTML = 0;
-      score = -1;
+      playState.score = -1;
       setTimeout(newGame, 7000);
+      console.log(playState.turnCounter);
   }
 
   function displayTimer(){
@@ -136,10 +139,9 @@
   }
 
  function freq(){
-
-    let currentClicks =  freqCounter;
+    let currentClicks = playState.freqCounter;
     frequency.innerHTML = currentClicks;
-    freqCounter = 0;
+    playState.freqCounter = 0;
   }
 
 function close(){
@@ -147,18 +149,13 @@ function close(){
   window.addEventListener("keydown", keyHandler);
 }
 
-
  function displayFreq(){
   frequencyVar = setInterval(freq, 1000);
 }
 
 function stopFreq(){
   clearInterval(frequencyVar);
-  console.log("stop freqing");
 }
-
-
-
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function animateLetters(){
@@ -221,11 +218,7 @@ function nextDownLetters(){
     randomTextShadow(d);
   }
 }
-
-
-
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 
 let num;
 
@@ -269,11 +262,9 @@ function setLevels(){
       levels.push(level);
     }
   }
-  console.log(levels);
 }
 
 function turnSelector(){
-  console.log("adding complications");
   for (let i = 0; i < levels.length; i++){
     let classRandom = Math.floor(Math.random() * 2 - 0);
     let compRandom = Math.floor(Math.random() * 2 - 0);
@@ -281,18 +272,15 @@ function turnSelector(){
 
     let level = levels[i];
 
-    if (turnCounter == level && turnCounter < 10){
-      console.log("firstlevel");
+    if (playState.turnCounter == level && playState.turnCounter < 10){
+      // console.log("firstlevel");
       word.classList.add(`${classes[classRandom]}`);
-    } else if (turnCounter == level && turnCounter < 10){
-      console.log("secondlevel");
-      complications[compRandom].call();
-    } else if (turnCounter == level && turnCounter > 10 &&
-     turnCounter < 20){
+    } else if (playState.turnCounter == level && playState.turnCounter > 10 &&
+     playState.turnCounter < 20){
       console.log("thirdlevel");
       word.classList.add(`${classes[classRandom]}`);
       complications[compRandom].call();
-    } else if (turnCounter == level && turnCounter > 20){
+    } else if (playState.turnCounter == level && playState.turnCounter > 20){
       console.log("fourthlevel");
       word.classList.add(`${classes[classRandom]}`);
       complications[compRandom].call();
@@ -330,17 +318,13 @@ function swap(e){
       case 17:
       case 91:
         window.removeEventListener("keydown", keyHandler);
-        // var stillPlaying = confirm("Game disabled. Would you like to continue playing?");
-        // stillPlaying ? window.addEventListener("keydown", keyHandler) : alert("Game Over");
+        var stillPlaying = confirm("Game disabled. Would you like to continue playing?");
+        stillPlaying ? window.addEventListener("keydown", keyHandler) : alert("Game Over");
         break;
     }
   }
 
-
-
-
 function invert(){
-
   window.removeEventListener("keydown", keyHandler);
   window.addEventListener("keydown", swap);
   arrows.style.display = "block";
@@ -352,7 +336,7 @@ function backgroundFlip(){
 }
 
 function reset(){
-  console.log("resetting");
+  // console.log("resetting");
   window.removeEventListener("keydown", swap);
   window.addEventListener("keydown", keyHandler);
 
@@ -378,7 +362,7 @@ function audio(){
 
 function win(){
   let help = document.getElementById("help");
-  if (turnCounter == 5) {
+  if (playState.turnCounter == 5) {
     darkness.style.animation="win 7s";
     splashPage.style.display="block";
     bkgd.pause();
@@ -386,13 +370,14 @@ function win(){
     levels = [];
     setLevels();
     turnSelector();
-    gameOn = false;
-    turnCounter = 0;
+    playState.gameOn = false;
+    playState.turnCounter = 0;
     scoreCard.innerHTML = 0;
-    score = -1;
+    playState.score = -1;
     window.removeEventListener("keydown", keyHandler);
     window.addEventListener("keydown", launchGame);
     setTimeout(newGame, 7000);
+    console.log(playState.turnCounter);
   }
 }
 
