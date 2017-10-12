@@ -29,5 +29,5 @@ I never managed to properly implement a "still playing?" screen after a certain 
 ## User stories
 This game is for anyone who wants a difficult game. 
 
-## How-to-use instructions
+## How-to-use instructions 
 Press Enter to start the game, press left arrow if the color of the word matches the word, press right if it does not match.
