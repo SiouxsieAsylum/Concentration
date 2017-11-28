@@ -3,9 +3,9 @@
 ### By Andrea McKenzie, 
 ### Oct 6. 2017
 
-   Email:[mckenzie.andrea.m@gmail.com](mailto:mckenzie.andrea.m@gmail.com)
-   LinkedIn:[Andrea McKenzie](https://www.linkedin.com/in/andrea-mckenzie/)
-   Skype: andrea.michelle.mckenzie
+- Email:[mckenzie.andrea.m@gmail.com](mailto:mckenzie.andrea.m@gmail.com)
+- LinkedIn:[Andrea McKenzie](https://www.linkedin.com/in/andrea-mckenzie/)
+- Skype: andrea.michelle.mckenzie
 
 # EPILEPSY WARNING!!! FLASHING LIGHTS AND COLORS!! PLEASE BE CAUTIOUS IF YOU ARE PRONE TO SEIZURES!!!
 
