@@ -38,7 +38,6 @@ p,h1, h2, h3 {
   text-align: center;
 }
 
-
 h2 {
   position:relative;
   display: inline-block;
@@ -136,18 +135,26 @@ h1 div {
 }
 
 #tutorial h1{
-  left:10vw;
-}
+    margin-left: 25vw;
+    display: inline;
+  }
 
 #tutorial div {
-  position: relative;
-  margin: 0;
-  padding: 0;
+    position: relative;
+    left: 0;
+}
+
+.arrow {
+    height: 18vw;
+    width: 28vw;
+    background-size: cover;
+    display: inline-block;
+
 }
 
 .flex {
-  left: 10vw;
-  display: flex;
+    display: flex;
+    margin: 50px 100px;
 }
 
 #tutorialContainer{
@@ -159,20 +166,12 @@ h1 div {
 }
 
 #left-arr{
-  /*background-color: red;*/
-  height:18vw;
-  width: 18vw;
   background-image:url(../images/left-arrow.png);
-  background-size: cover;
 }
 
 #right-arr{
-  /*top: 18vw;*/
   left:0;
-  height:18vw;
-  width: 18vw;
   background-image:url(../images/right-arrow.png);
-  background-size: cover;
 }
 
 
@@ -227,13 +226,13 @@ h1 div {
 
 .flippedY{
   transform: scaleY(-1);
+  bottom: 0;
 }
 .flipped{
   transform: scale(-1);
 }
 
 #clickme{
-  /*background-color: red;*/
   height: 5vh;
   width: 5vh;
   position: absolute;
@@ -243,9 +242,6 @@ h1 div {
   background-size: cover;
 }
 
-/*.off {
-  background-image: url(../images/no_music.png);
-}*/
 
 
 

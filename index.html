@@ -38,7 +38,7 @@
     <h2 id="clickhere" >Press Enter to start</h2>
 
     <div id="clickme" onclick="audio()">
-    <audio autoplay loop id="bkgd">
+    <audio id="bkgd">
       <source src="media/04-MountainSoundscapes.mp3" type="audio/mpeg">
     </audio></div>
     <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/us/"><p>Music licensed under Creative Commons</p></a>
@@ -46,28 +46,24 @@
 
   <div class="splashPage" id="tutorial">
   <div class="flex">
-    <div id="left-arr"></div>
-    <div id="correct">
-      <h1 style="color:green">green</h1>
-    </div>
+    <div class="arrow" id="left-arr"></div>
+    <h1 style="color:green">green</h1>
   </div>
   <div class="flex">
-    <div id="right-arr"></div>
-    <div id="incorrect">
-      <h1 style="color:red">blue</h1>
-    </div>
+    <div class="arrow" id="right-arr"></div>
+    <h1 style="color:red">blue</h1>
   </div>
   </div>
   <div class="splashPage" id="darkness"></div>
 
   <h1 class="displayScore" id = "timer">0.0</h1>
-  <h1 class="displayScore" id="frequency">freq:<span id = "freqNumber">0.0</span></h1>
+  <h1 class="displayScore" id="frequency">freq:<span id = "freqNumber"></span></h1>
 
 
   <audio id="swoosh">
     <source src="media/swoosh.mp3" type="audio/mpeg" >
   </audio>
-  <audio id="distort">
+  <audio volume="0.5" id="distort">
     <source src="media/distortion.mp3" type="audio/mpeg" >
   </audio>
   <audio id="help">

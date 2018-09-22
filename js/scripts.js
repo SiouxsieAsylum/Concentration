@@ -26,29 +26,31 @@
   let complications = [invert, backgroundColor, backgroundFlip];
 
   let levels = [];
-  // let gameOn = false;
-  // let freqCounter = 0;
-  let startTimer = new Date();
+  let startTimer;
   let speedOfPlay = 0;
-  // let highScore = storage.getItem('high-score');
   let matching = false;
-  // let score = -1;
-  // let turnCounter = 1;
   let playState = {
     highScore: storage.getItem('high-score'),
     score: -1,
     turnCounter: 0,
     freqCounter: 0,
     gameOn: false,
+    gameCount: 0
+
   };
+  let interval;
 
-  playState.highScore !== null ? highScoreCard.innerHTML = playState.highScore : playState.highScore;
 
+  playState.highScore && setHighScore();
+
+//----------------------- game logic
 
   window.addEventListener("keydown", launchGame)
 
   function launchGame(e){
     let key = e.keyCode;
+    startTimer = new Date();
+
 
     if (key == 13){
         if (splashPage.style.display = "block"){
@@ -59,57 +61,54 @@
         window.removeEventListener("keydown", launchGame);
         window.addEventListener("keydown", keyHandler);
 
-        setTimeout(randColor, 5500);
-        setTimeout(displayTimer, 5500);
+        initFreq();
+        zeroFreq();
+        disabled = false;
+        if (!playState.gameCount) {
+          bkgd.play();
+          setTimeout(randColor, 5500);
+          setTimeout(displayTimer, 5500);
+        } else {
+          randColor();
+          displayTimer();
+        }
+
       }
   }
 
-  function randColor(){
-    startTimer = new Date();
 
-    let randWord = Math.floor(Math.random() * 9 - 0);
-    let randColor = Math.floor(Math.random() * 9 - 0);
-
-    word.innerHTML = colors[randWord];
-    word.style.color = colors[randColor];
-
-    randWord === randColor ? matching = true : matching = false;
-
-    playState.score++;
-    playState.turnCounter++;
-    playState.freqCounter++;
-    playState.gameOn = true;
-    setInterval(displayTimer, .5);
-    scoreCard.innerHTML= playState.score;
-    console.log(playState.turnCounter);
-    win();
-  }
 
   function keyHandler(e){
     let key = e.keyCode;
-
     switch(key){
-      case 37:
-        matching ? randColor() : gameOver();
-        swoosh.play();
-        reset();
+      case 32:
+        audio();
         break;
+      case 37:
+        if (playState.gameOn) {
+          matching ? randColor() : gameOver();
+          swoosh.play();
+          reset();
+        }
+      break;
       case 39:
-        !matching ? randColor() : gameOver();
-        swoosh.play();
-        reset();
+        if (playState.gameOn) {
+          !matching ? randColor() : gameOver();
+          swoosh.play();
+          reset();
+        }
         break;
       case 27:
       case 17:
       case 91:
         window.removeEventListener("keydown", keyHandler);
         var stillPlaying = confirm("Game disabled. Would you like to continue playing?");
-        stillPlaying ? window.addEventListener("keydown", keyHandler) : gameOver();
+        stillPlaying ? window.addEventListener("keydown", keyHandler) : gameOver('notPlaying');
         break;
     }
   }
 
-    function gameOver(){
+    function gameOver(disclaimer){
       let currentHighScore = parseInt(playState.highScore);
 
       if (playState.score > currentHighScore) {
@@ -118,8 +117,10 @@
         storage.setItem('high-score', playState.score);
       }
       reset();
+      disabled = true;
       darkness.style.animation="dark 3s 1 linear"
-      distort.play();
+      !disclaimer && distort.play();
+      !disclaimer && playState.gameCount++;
       window.addEventListener("keydown", launchGame);
       splashPage.style.display="block";
       levels = [];
@@ -130,18 +131,60 @@
       scoreCard.innerHTML = 0;
       playState.score = -1;
       setTimeout(newGame, 7000);
-      console.log(playState.turnCounter);
   }
+
+  function win(){
+  let help = document.getElementById("help");
+  if (playState.turnCounter == 51) {
+    darkness.style.animation="win 7s";
+    splashPage.style.display="block";
+    bkgd.pause();
+    help.play();
+    levels = [];
+    setLevels();
+    turnSelector();
+    playState.gameCount++;
+    playState.gameOn = false;
+    playState.turnCounter = 0;
+    scoreCard.innerHTML = 0;
+    playState.score = -1;
+    window.removeEventListener("keydown", keyHandler);
+    window.addEventListener("keydown", launchGame);
+    setTimeout(newGame, 7000);
+  }
+}
+
+
+function newGame(){
+
+  darkness.style.animation="initial";
+  //bkgd.play();
+}
+
+
+// --------------- timers and displays
 
   function displayTimer(){
     let time = new Date();
     timer.innerHTML = time - startTimer;
   }
 
+  function initFreq (){
+    startTimer = new Date();
+  }
+
+  function zeroFreq() {
+    frequency.innerHTML = "0.00";
+  }
+
  function freq(){
-    let currentClicks = playState.freqCounter;
-    frequency.innerHTML = currentClicks;
-    playState.freqCounter = 0;
+    let now = new Date();
+    let ms = now.getTime() - startTimer.getTime();
+    let re = /^\d\d\d$/;
+    let playerSpeed = `${ms.toPrecision(3)}`;
+    playerSpeed = playerSpeed.match(re) || "| | | ";
+    frequency.innerHTML = playerSpeed;
+    initFreq(); 
   }
 
 function close(){
@@ -157,7 +200,31 @@ function stopFreq(){
   clearInterval(frequencyVar);
 }
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// -------------------- animations 
+
+  function setStage() {
+    let randWord = Math.floor(Math.random() * 9);
+    let randColor = Math.floor(Math.random() * 9);
+
+    word.innerHTML = colors[randWord];
+    word.style.color = colors[randColor];
+
+    randWord === randColor ? matching = true : matching = false;
+  }
+
+  function randColor(){
+    setStage();
+    playState.score++;
+    playState.turnCounter++;
+    playState.freqCounter++;
+    freq();
+    playState.gameOn = true;
+    interval = setInterval(displayTimer, .5);
+    scoreCard.innerHTML= playState.score;
+    win();
+  }
+
 function animateLetters(){
   setInterval(firstUpLetters, 1500);
   setInterval(firstDownLetters, 1500);
@@ -172,7 +239,7 @@ let title = document.getElementById("title");
 
 function firstUpLetters(){
  for (u of ups) {
-    u.style.color="rgba(255,255,255,0.8)";
+    u.style.color="rgba(0,0,0,0.8)";
     u.style.transform=" scaleX(-1) translateY(-2vh);";
   }
 }
@@ -180,7 +247,7 @@ function firstUpLetters(){
 function firstDownLetters(){
 
  for (d of downs) {
-    d.style.color="rgba(255,255,255,0.8)";
+    d.style.color="rgba(0,0,0,0.8)";
     d.style.transform=" scaleX(-1) translateY(-2vh)";
   }
 }
@@ -218,46 +285,54 @@ function nextDownLetters(){
     randomTextShadow(d);
   }
 }
+
+function flipLetter() {
+  const innerHTML = word.innerHTML;
+  const length = innerHTML.length;
+  let letter = Math.floor(Math.random() * length);
+  word[letter].classList.add(".flippedX");
+}
+
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 let num;
 
 // the randomizer to end all randomizers;
 function setLevels(){
-  let firstRange =  Math.floor(Math.random() * 8 - 0) + 1;
-  let secondRange = Math.floor(Math.random() * 10 - 0) + 1;
-  let thirdRange = Math.floor(Math.random() * 15 - 0) + 1;
-  let fourthRange = Math.floor(Math.random() * 30 - 0) + 10;
-  let fifthRange = Math.floor(Math.random() * 35 - 0) + 10;
+  let firstRange =  Math.floor(Math.random() * 8 ) + 1;
+  let secondRange = Math.floor(Math.random() * 10) + 1;
+  let thirdRange = Math.floor(Math.random() * 15) + 1;
+  let fourthRange = Math.floor(Math.random() * 30) + 10;
+  let fifthRange = Math.floor(Math.random() * 35) + 10;
 
   for (let i = 1; i < firstRange; i++){
-    let level = Math.floor(Math.random() * 8 - 0) + 10;
+    let level = Math.floor(Math.random() * 8) + 10;
     if (!levels.includes(level)){
       levels.push(level);
     }
   }
     for (let i = 1; i < secondRange; i++){
-    let level = Math.floor(Math.random() * 18 - 0) + 12;
+    let level = Math.floor(Math.random() * 18) + 12;
     if (!levels.includes(level)){
       levels.push(level);
     }
   }
     for (let i = 1; i < thirdRange; i++){
-    let level = Math.floor(Math.random() * 18 - 0) + 20;
+    let level = Math.floor(Math.random() * 18) + 20;
     if (!levels.includes(level)){
       levels.push(level);
     }
   }
 
   for (let i = 1; i < fourthRange; i++){
-    let level = Math.floor(Math.random() * 18 - 0) + 30;
+    let level = Math.floor(Math.random() * 18) + 30;
     if (!levels.includes(level)){
       levels.push(level);
     }
   }
 
   for (let i = 1; i < fifthRange; i++){
-    let level = Math.floor(Math.random() * 18 - 0) + 40;
+    let level = Math.floor(Math.random() * 18) + 40;
     if (!levels.includes(level)){
       levels.push(level);
     }
@@ -266,25 +341,22 @@ function setLevels(){
 
 function turnSelector(){
   for (let i = 0; i < levels.length; i++){
-    let classRandom = Math.floor(Math.random() * 2 - 0);
-    let compRandom = Math.floor(Math.random() * 2 - 0);
-    let compExtra = Math.floor(Math.random() * 2 - 0);
+    let classRandom = Math.floor(Math.random() * 2);
+    let compRandom = Math.floor(Math.random() * 2);
 
     let level = levels[i];
 
-    if (playState.turnCounter == level && playState.turnCounter < 10){
-      // console.log("firstlevel");
+    if (playState.turnCounter == level && playState.turnCounter < 10) {
       word.classList.add(`${classes[classRandom]}`);
+      flipLetter();
     } else if (playState.turnCounter == level && playState.turnCounter > 10 &&
      playState.turnCounter < 20){
-      console.log("thirdlevel");
       word.classList.add(`${classes[classRandom]}`);
       complications[compRandom].call();
     } else if (playState.turnCounter == level && playState.turnCounter > 20){
-      console.log("fourthlevel");
       word.classList.add(`${classes[classRandom]}`);
       complications[compRandom].call();
-      body.classList.add(`${classes[classRandom]}`);
+      complications[compRandom].call();
     }
   }
 
@@ -303,7 +375,10 @@ function backgroundColor(){
 function swap(e){
   let key = e.keyCode;
 
-      switch(key){
+    switch(key){
+      case 32:
+        audio();
+        break;
       case 39:
         matching ? randColor() : gameOver();
         reset();
@@ -332,14 +407,13 @@ function invert(){
 
 function backgroundFlip(){
   let rand = Math.floor(Math.random() * 2 - 0);
-  body.classList.add(`${classes[rand]}`);
+  if(classes[rand] !== 'flippedY') body.classList.add(`${classes[rand]}`);
 }
 
 function reset(){
-  // console.log("resetting");
   window.removeEventListener("keydown", swap);
   window.addEventListener("keydown", keyHandler);
-
+  clearInterval(interval);
   arrows.style.display="none";
   body.style.background = "none";
   body.classList = "";
@@ -347,43 +421,22 @@ function reset(){
   turnSelector();
 }
 
+function setHighScore(){
+  highScoreCard.innerHTML = playState.highScore;
+}
+
 
 function audio(){
-
   let audioDiv = document.getElementById("clickme");
   if (!bkgd.muted){
     bkgd.muted = true;
     audioDiv.style.backgroundImage = "url(images/no_music.png)"
   } else {
     bkgd.muted = false;
+    bkgd.loop = true;
     audioDiv.style.backgroundImage = "url(images/yes_music.png)"
   }
 }
 
-function win(){
-  let help = document.getElementById("help");
-  if (playState.turnCounter == 51) {
-    darkness.style.animation="win 7s";
-    splashPage.style.display="block";
-    bkgd.pause();
-    help.play();
-    levels = [];
-    setLevels();
-    turnSelector();
-    playState.gameOn = false;
-    playState.turnCounter = 0;
-    scoreCard.innerHTML = 0;
-    playState.score = -1;
-    window.removeEventListener("keydown", keyHandler);
-    window.addEventListener("keydown", launchGame);
-    setTimeout(newGame, 7000);
-    console.log(playState.turnCounter);
-  }
-}
 
-
-function newGame(){
-  darkness.style.animation="initial";
-  bkgd.play();
-}
-
+newGame();
